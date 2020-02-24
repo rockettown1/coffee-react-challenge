@@ -3,17 +3,14 @@ import "./App.css";
 import NameInput from "./components/NameInput";
 import CurrentOrder from "./components/CurrentOrder";
 import CoffeeInput from "./components/CoffeeInput";
-import SizeInput from "./components/SizeInput";
 
 class App extends Component {
   state = {
     currentName: "",
-    currentSize: "",
     currentCoffee: "",
     currentOrder: "",
     orders: [],
     showNameInput: true,
-    showSizeInput: false,
     showCoffeeInput: false
   };
 
@@ -21,35 +18,15 @@ class App extends Component {
     let capName = event.target.value.toUpperCase();
     this.setState({ currentName: capName });
   };
-
-  handleSizeInput = event => {
-    this.setState({ currentSize: ` would like a ${event.target.value},` });
-  };
-
   handleCoffeeInput = event => {
-    this.setState({ currentCoffee: `${event.target.value}.` });
+    this.setState({ currentCoffee: ` would like a ${event.target.value}.` });
   };
 
   handleNameSubmit = () => {
     this.setState({
       currentOrder: this.state.currentName,
       showNameInput: false,
-      showSizeInput: true,
-      showCoffeeInput: false
-    });
-  };
-
-  handleSizeSubmit = () => {
-    let order = this.state.currentOrder;
-    let cSize = this.state.currentSize;
-    let afterOrder = order + cSize;
-    let ordersArray = [...this.state.orders];
-    ordersArray.push(afterOrder);
-    this.setState({
-      showNameInput: false,
-      showSizeInput: false,
-      showCoffeeInput: true,
-      currentOrder: order
+      showCoffeeInput: true
     });
   };
 
@@ -60,11 +37,9 @@ class App extends Component {
     ordersArray.push(order);
     this.setState({
       showCoffeeInput: false,
-      showSizeInput: false,
       showNameInput: true,
       orders: ordersArray,
       currentName: "",
-      currentSize: "",
       currentOrder: "",
       currentCoffee: ""
     });
@@ -82,12 +57,6 @@ class App extends Component {
           <NameInput
             handleNameInput={this.handleNameInput}
             handleNameSubmit={this.handleNameSubmit}
-          />
-        )}
-        {this.state.showSizeInput && (
-          <SizeInput
-            handleSizeInput={this.handleSizeInput}
-            handleSizeSubmit={this.handleSizeSubmit}
           />
         )}
         {this.state.showCoffeeInput && (
