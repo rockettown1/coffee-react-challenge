@@ -18,7 +18,8 @@ class App extends Component {
   };
 
   handleNameInput = event => {
-    this.setState({ currentName: event.target.value });
+    let capName = event.target.value.toUpperCase();
+    this.setState({ currentName: capName });
   };
 
   handleSizeInput = event => {
@@ -69,6 +70,10 @@ class App extends Component {
     });
   };
 
+  orderDelete = index => {
+    this.setState(this.state.orders.splice(index, 1));
+  };
+
   render() {
     return (
       <div className="container">
@@ -94,7 +99,12 @@ class App extends Component {
         <CurrentOrder currentOrder={this.state.currentOrder} />
         <div className="completed-orders">
           {this.state.orders.map((order, index) => {
-            return <h2>{order}</h2>;
+            return (
+              <div className="orders">
+                <h2>{order}</h2>
+                <button onClick={() => this.orderDelete(index)}>x</button>
+              </div>
+            );
           })}
         </div>
       </div>
