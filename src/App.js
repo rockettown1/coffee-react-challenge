@@ -43,13 +43,11 @@ class App extends Component {
     let order = this.state.currentOrder;
     let cSize = this.state.currentSize;
     let afterOrder = order + cSize;
-    let ordersArray = [...this.state.orders];
-    ordersArray.push(afterOrder);
     this.setState({
       showNameInput: false,
       showSizeInput: false,
       showCoffeeInput: true,
-      currentOrder: order
+      currentOrder: afterOrder
     });
   };
 
@@ -96,7 +94,6 @@ class App extends Component {
             handleCoffeeSubmit={this.handleCoffeeSubmit}
           />
         )}
-        <h1>Dan has entered the game</h1>
         <CurrentOrder currentOrder={this.state.currentOrder} />
         <div className="completed-orders">
           {this.state.orders.map((order, index) => {
