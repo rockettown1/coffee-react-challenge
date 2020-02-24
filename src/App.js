@@ -96,6 +96,7 @@ class App extends Component {
             handleCoffeeSubmit={this.handleCoffeeSubmit}
           />
         )}
+        <h1>Dan has entered the game</h1>
         <CurrentOrder currentOrder={this.state.currentOrder} />
         <div className="completed-orders">
           {this.state.orders.map((order, index) => {
