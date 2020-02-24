@@ -3,33 +3,47 @@ import "./App.css";
 import NameInput from "./components/NameInput";
 import CurrentOrder from "./components/CurrentOrder";
 import CoffeeInput from "./components/CoffeeInput";
-
+import SizeInput from "./components/SizeInput";
 class App extends Component {
   state = {
     currentName: "",
+    currentSize: "",
     currentCoffee: "",
     currentOrder: "",
     orders: [],
     showNameInput: true,
+    showSizeInput: false,
     showCoffeeInput: false
   };
-
   handleNameInput = event => {
     let capName = event.target.value.toUpperCase();
     this.setState({ currentName: capName });
   };
-  handleCoffeeInput = event => {
-    this.setState({ currentCoffee: ` would like a ${event.target.value}.` });
+  handleSizeInput = event => {
+    this.setState({ currentSize: ` would like a ${event.target.value}, ` });
   };
-
+  handleCoffeeInput = event => {
+    this.setState({ currentCoffee: `${event.target.value}.` });
+  };
   handleNameSubmit = () => {
     this.setState({
       currentOrder: this.state.currentName,
       showNameInput: false,
-      showCoffeeInput: true
+      showSizeInput: true,
+      showCoffeeInput: false
     });
   };
-
+  handleSizeSubmit = () => {
+    let order = this.state.currentOrder;
+    let cSize = this.state.currentSize;
+    let afterOrder = order + cSize;
+    this.setState({
+      showNameInput: false,
+      showSizeInput: false,
+      showCoffeeInput: true,
+      currentOrder: afterOrder
+    });
+  };
   handleCoffeeSubmit = () => {
     let order = this.state.currentOrder;
     order += this.state.currentCoffee;
@@ -37,18 +51,18 @@ class App extends Component {
     ordersArray.push(order);
     this.setState({
       showCoffeeInput: false,
+      showSizeInput: false,
       showNameInput: true,
       orders: ordersArray,
       currentName: "",
+      currentSize: "",
       currentOrder: "",
       currentCoffee: ""
     });
   };
-
   orderDelete = index => {
     this.setState(this.state.orders.splice(index, 1));
   };
-
   render() {
     return (
       <div className="container">
@@ -59,13 +73,18 @@ class App extends Component {
             handleNameSubmit={this.handleNameSubmit}
           />
         )}
+        {this.state.showSizeInput && (
+          <SizeInput
+            handleSizeInput={this.handleSizeInput}
+            handleSizeSubmit={this.handleSizeSubmit}
+          />
+        )}
         {this.state.showCoffeeInput && (
           <CoffeeInput
             handleCoffeeInput={this.handleCoffeeInput}
             handleCoffeeSubmit={this.handleCoffeeSubmit}
           />
         )}
-        <h1>Dan has entered the game</h1>
         <CurrentOrder currentOrder={this.state.currentOrder} />
         <div className="completed-orders">
           {this.state.orders.map((order, index) => {
@@ -81,5 +100,4 @@ class App extends Component {
     );
   }
 }
-
 export default App;
