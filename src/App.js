@@ -15,14 +15,19 @@ class App extends Component {
   };
 
   handleNameInput = event => {
-    this.setState({ currentName: event.target.value });
+    let capName = event.target.value.toUpperCase();
+    this.setState({ currentName: capName });
   };
   handleCoffeeInput = event => {
     this.setState({ currentCoffee: ` would like a ${event.target.value}.` });
   };
 
   handleNameSubmit = () => {
-    this.setState({ currentOrder: this.state.currentName, showNameInput: false, showCoffeeInput: true });
+    this.setState({
+      currentOrder: this.state.currentName,
+      showNameInput: false,
+      showCoffeeInput: true
+    });
   };
 
   handleCoffeeSubmit = () => {
@@ -45,10 +50,16 @@ class App extends Component {
       <div className="container">
         <h1>Who wants coffee?</h1>
         {this.state.showNameInput && (
-          <NameInput handleNameInput={this.handleNameInput} handleNameSubmit={this.handleNameSubmit} />
+          <NameInput
+            handleNameInput={this.handleNameInput}
+            handleNameSubmit={this.handleNameSubmit}
+          />
         )}
         {this.state.showCoffeeInput && (
-          <CoffeeInput handleCoffeeInput={this.handleCoffeeInput} handleCoffeeSubmit={this.handleCoffeeSubmit} />
+          <CoffeeInput
+            handleCoffeeInput={this.handleCoffeeInput}
+            handleCoffeeSubmit={this.handleCoffeeSubmit}
+          />
         )}
         <CurrentOrder currentOrder={this.state.currentOrder} />
         <div className="completed-orders">
