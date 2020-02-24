@@ -22,7 +22,7 @@ class App extends Component {
   };
 
   handleSizeInput = event => {
-    this.setState({ currentSize: ` would like a ${event.target.value},` });
+    this.setState({ currentSize: ` would like a ${event.target.value}, ` });
   };
 
   handleCoffeeInput = event => {
@@ -42,13 +42,13 @@ class App extends Component {
     let order = this.state.currentOrder;
     let cSize = this.state.currentSize;
     let afterOrder = order + cSize;
-    let ordersArray = [...this.state.orders];
-    ordersArray.push(afterOrder);
+    // let ordersArray = [...this.state.orders]
+    // ordersArray.push(afterOrder);
     this.setState({
       showNameInput: false,
       showSizeInput: false,
       showCoffeeInput: true,
-      currentOrder: order
+      currentOrder: afterOrder
     });
   };
 
