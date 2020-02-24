@@ -45,7 +45,7 @@ class App extends Component {
     });
   };
 
-  delete = index => {
+  orderDelete = index => {
     this.setState(this.state.orders.splice(index, 1));
   };
 
@@ -71,7 +71,7 @@ class App extends Component {
             return (
               <div className="orders">
                 <h2>{order}</h2>
-                <button onClick={() => this.delete(index)}>x</button>
+                <button onClick={() => this.orderDelete(index)}>x</button>
               </div>
             );
           })}
