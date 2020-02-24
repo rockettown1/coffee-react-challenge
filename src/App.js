@@ -45,6 +45,10 @@ class App extends Component {
     });
   };
 
+  delete = index => {
+    this.setState(this.state.orders.splice(index, 1));
+  };
+
   render() {
     return (
       <div className="container">
@@ -64,7 +68,12 @@ class App extends Component {
         <CurrentOrder currentOrder={this.state.currentOrder} />
         <div className="completed-orders">
           {this.state.orders.map((order, index) => {
-            return <h2>{order}</h2>;
+            return (
+              <div className="orders">
+                <h2>{order}</h2>
+                <button onClick={() => this.delete(index)}>x</button>
+              </div>
+            );
           })}
         </div>
       </div>
