@@ -4,6 +4,7 @@ import NameInput from "./components/NameInput";
 import CurrentOrder from "./components/CurrentOrder";
 import CoffeeInput from "./components/CoffeeInput";
 import SizeInput from "./components/SizeInput";
+console.log("hello");
 
 class App extends Component {
   state = {
@@ -12,9 +13,12 @@ class App extends Component {
     currentCoffee: "",
     currentOrder: "",
     orders: [],
+    orderNames: [],
     showNameInput: true,
     showSizeInput: false,
-    showCoffeeInput: false
+    showCoffeeInput: false,
+    randomNameShow: false,
+    randomName: ""
   };
 
   handleNameInput = event => {
@@ -23,7 +27,7 @@ class App extends Component {
   };
 
   handleSizeInput = event => {
-    this.setState({ currentSize: ` would like a ${event.target.value},` });
+    this.setState({ currentSize: ` would like a ${event.target.value}, ` });
   };
 
   handleCoffeeInput = event => {
@@ -31,8 +35,12 @@ class App extends Component {
   };
 
   handleNameSubmit = () => {
+    let names = [...this.state.orderNames];
+    let newName = this.state.currentName;
+    names.push(newName);
     this.setState({
-      currentOrder: this.state.currentName,
+      currentOrder: newName,
+      orderNames: names,
       showNameInput: false,
       showSizeInput: true,
       showCoffeeInput: false
@@ -69,7 +77,25 @@ class App extends Component {
   };
 
   orderDelete = index => {
-    this.setState(this.state.orders.splice(index, 1));
+    let newOrders = [...this.state.orders];
+    let newOrderNames = [...this.state.orderNames];
+    newOrders.splice(index, 1);
+    newOrderNames.splice(index, 1);
+    this.setState({
+      orders: newOrders,
+      orderNames: newOrderNames
+    });
+  };
+
+  handleRandomName = () => {
+    let randomNameNumGen = Math.floor(
+      Math.random() * this.state.orderNames.length
+    );
+    let randomNameGen = this.state.orderNames[randomNameNumGen];
+    this.setState({
+      randomName: randomNameGen,
+      randomNameShow: true
+    });
   };
 
   render() {
@@ -95,6 +121,13 @@ class App extends Component {
           />
         )}
         <CurrentOrder currentOrder={this.state.currentOrder} />
+        {this.state.randomNameShow ? (
+          <h3>{this.state.randomName}</h3>
+        ) : (
+          <h3 onClick={() => this.handleRandomName()}>
+            Click to choose random name from order list
+          </h3>
+        )}
         <div className="completed-orders">
           {this.state.orders.map((order, index) => {
             return (
@@ -109,5 +142,4 @@ class App extends Component {
     );
   }
 }
-
 export default App;
