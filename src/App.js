@@ -4,6 +4,7 @@ import NameInput from "./components/NameInput";
 import CurrentOrder from "./components/CurrentOrder";
 import CoffeeInput from "./components/CoffeeInput";
 import SizeInput from "./components/SizeInput";
+console.log("hello");
 
 class App extends Component {
   state = {
