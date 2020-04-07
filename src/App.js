@@ -1,8 +1,8 @@
 import React, { Component } from "react";
-import "./App.css";
 import NameInput from "./components/NameInput";
 import CurrentOrder from "./components/CurrentOrder";
 import CoffeeInput from "./components/CoffeeInput";
+import "./App.css";
 
 class App extends Component {
   state = {
@@ -11,13 +11,13 @@ class App extends Component {
     currentOrder: "",
     orders: [],
     showNameInput: true,
-    showCoffeeInput: false
+    showCoffeeInput: false,
   };
 
-  handleNameInput = event => {
+  handleNameInput = (event) => {
     this.setState({ currentName: event.target.value });
   };
-  handleCoffeeInput = event => {
+  handleCoffeeInput = (event) => {
     this.setState({ currentCoffee: ` would like a ${event.target.value}.` });
   };
 
@@ -36,7 +36,7 @@ class App extends Component {
       orders: ordersArray,
       currentName: "",
       currentOrder: "",
-      currentCoffee: ""
+      currentCoffee: "",
     });
   };
 
@@ -53,7 +53,7 @@ class App extends Component {
         <CurrentOrder currentOrder={this.state.currentOrder} />
         <div className="completed-orders">
           {this.state.orders.map((order, index) => {
-            return <h2>{order}</h2>;
+            return <h2 key={index}>{order}</h2>;
           })}
         </div>
       </div>
